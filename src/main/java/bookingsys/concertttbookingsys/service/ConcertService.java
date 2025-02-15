@@ -1,6 +1,7 @@
 package bookingsys.concertttbookingsys.service;
 
 import bookingsys.concertttbookingsys.entity.Concert;
+import bookingsys.concertttbookingsys.exception.ConcertNotFoundException;
 import bookingsys.concertttbookingsys.repository.ConcertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class ConcertService {
             concert.setDate(concertDetails.getDate());
             concert.setAvailableTickets(concertDetails.getAvailableTickets());
             return concertRepository.save(concert);
-        }).orElseThrow(() -> new RuntimeException("Could not find concert with id " + id));
+        }).orElseThrow(() -> new ConcertNotFoundException("Could not find concert with id " + id));
     }
 
     public void deleteConcert(Long id){
